@@ -1,5 +1,6 @@
 import { locService } from './services/loc.service.js'
 import { mapService } from './services/map.service.js'
+import { storageService } from './services/storage.service.js'
 
 
 window.onload = onInit;
@@ -11,6 +12,7 @@ window.onSaveLoc = onSaveLoc;
 window.onCloseInfoWindow= onCloseInfoWindow;
 
 function onInit() {
+    saveToStorage('lala', 5)
     mapService.initMap()
         .then(() => {
             console.log('Map is ready');
@@ -20,14 +22,17 @@ function onInit() {
 
 function onCloseInfoWindow(){
     const infoWindow = mapService.getInfoWindow()
-    console.log(infoWindow.position.lat());
+    // console.log(infoWindow.position.lat());
     infoWindow.close()
 }
 
-
 function onSaveLoc(){
+    const infoWindow = mapService.getInfoWindow()
+    const pos = {lat: infoWindow.position.lat(), lng: infoWindow.position.lng() }
     var name = document.querySelector('.place-name').value;
-    console.log(name);
+    saveLoc(name, pos.lat, pos.lng)
+    // console.log(pos);
+    infoWindow.close();
 }
 
 // This function provides a Promise API to the callback-based-api of getCurrentPosition
