@@ -1,12 +1,6 @@
-<<<<<<< HEAD
-import { locService } from "./services/loc.service.js";
-import { mapService } from "./services/map.service.js";
-import { weatherService } from "./services/weather.service.js";
-=======
 import { locService } from './services/loc.service.js';
 import { mapService } from './services/map.service.js';
 import { weatherService } from './services/weather.service.js';
->>>>>>> f54998d5aff688ddf3501427171d486af544efcc
 
 window.onload = onInit;
 window.onAddMarker = onAddMarker;
@@ -17,25 +11,17 @@ window.onSaveLoc = onSaveLoc;
 window.onCloseInfoWindow = onCloseInfoWindow;
 window.onGoToLoc = onGoToLoc;
 window.onDeleteLoc = onDeleteLoc;
-<<<<<<< HEAD
-=======
 window.onSearch = onSearch;
 window.onCopyLink = onCopyLink;
->>>>>>> f54998d5aff688ddf3501427171d486af544efcc
 
 function onInit() {
     var isCopy = (window.location.href.indexOf('lat') > -1) ? true: false;
   mapService
     .initMap()
     .then(() => {
-<<<<<<< HEAD
-      // console.log('Map is ready');
-      locService.initLocs();
-=======
       console.log('Map is ready');
       const locs = locService.initLocs();
       mapService.initMarkers(locs);
->>>>>>> f54998d5aff688ddf3501427171d486af544efcc
     })
     .catch(() => console.log("Error: cannot init map"));
 
@@ -69,11 +55,7 @@ function onSaveLoc() {
   mapService.addMarker(pos, name);
   infoWindow.close();
   onGetLocs();
-<<<<<<< HEAD
   renderWeather(pos.lat, pos.lng);
-
-=======
->>>>>>> f54998d5aff688ddf3501427171d486af544efcc
 }
 
 // This function provides a Promise API to the callback-based-api of getCurrentPosition
@@ -91,10 +73,7 @@ function onAddMarker() {
 
 function onGetLocs() {
   locService.getLocs().then((locs) => {
-<<<<<<< HEAD
     console.log("Locations:", locs);
-=======
->>>>>>> f54998d5aff688ddf3501427171d486af544efcc
     var strHtml = locs.map(
       (loc) =>
         `<tr>
@@ -111,18 +90,6 @@ function onGetLocs() {
   });
 }
 
-<<<<<<< HEAD
-function onDeleteLoc(lat, lng) {
-  locService.deleteLoc(lat, lng);
-  onGetLocs();
-}
-
-function onGoToLoc(lat, lng) {
-  // document.querySelector('.locs-container').classList.add('hide')
-  mapService.panTo(lat, lng);
-  renderWeather(lat, lng);
-
-=======
 function onCopyLink(lat, lng) {
   const params = new URL(
     `https://oshrahartuv.github.io/TravelTip/index.html?${lat}=1&${lng}=2`
@@ -141,7 +108,7 @@ function onDeleteLoc(lat, lng) {
 function onGoToLoc(lat, lng) {
   // document.querySelector('.locs-container').classList.add('hide')
   mapService.panTo(lat, lng);
->>>>>>> f54998d5aff688ddf3501427171d486af544efcc
+  renderWeather(lat, lng)
 }
 
 function onGetUserPos() {
@@ -157,17 +124,11 @@ function onGetUserPos() {
       console.log("err!!!", err);
     });
 }
-<<<<<<< HEAD
-function onPanTo() {
-  // console.log('Panning the Map');
-  mapService.panTo(35.6895, 139.6917);
-}
 
 function renderWeather(lat, lng) {
   locService.getPlaceAddress(lat, lng).then((placeRes) => {
     weatherService.getWeather(placeRes).then(weatherRes => {
-      console.log(weatherRes);
-      debugger
+      console.log('weatherRes:',weatherRes, '\n placeRes:', placeRes);
       // document.querySelector('.icon').innerText = '&#' + weatherRes.icon
       document.querySelector('.city').innerText = placeRes.city;
       document.querySelector('.country').innerText = placeRes.country;
@@ -177,13 +138,12 @@ function renderWeather(lat, lng) {
       document.querySelector('.max-temp').innerText = weatherRes.maxTemp;
       document.querySelector('.wind  span').innerText = weatherRes.wind;
     })
-    .catch(err => {console.log(err);})
+    // .catch(err => {console.log(err);})
   });
+}
 
-=======
 
 function onPanTo() {
   console.log('Panning the Map');
   mapService.panTo(35.6895, 139.6917);
->>>>>>> f54998d5aff688ddf3501427171d486af544efcc
 }
