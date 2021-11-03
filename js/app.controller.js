@@ -1,12 +1,6 @@
-<<<<<<< HEAD
-import { locService } from './services/loc.service.js'
-import { mapService } from './services/map.service.js'
-import { weatherService } from './services/weather.service.js'
-
-=======
 import { locService } from './services/loc.service.js';
 import { mapService } from './services/map.service.js';
->>>>>>> cb261b83dfe9c930590ac15cc3025c53a8ecc5e1
+import { weatherService } from './services/weather.service.js';
 
 window.onload = onInit;
 window.onAddMarker = onAddMarker;
@@ -15,17 +9,31 @@ window.onGetLocs = onGetLocs;
 window.onGetUserPos = onGetUserPos;
 window.onSaveLoc = onSaveLoc;
 window.onCloseInfoWindow = onCloseInfoWindow;
-window.onGoToLoc= onGoToLoc;
-window.onDeleteLoc= onDeleteLoc;
+window.onGoToLoc = onGoToLoc;
+window.onDeleteLoc = onDeleteLoc;
+window.onSearch = onSearch;
 
 function onInit() {
   mapService
     .initMap()
     .then(() => {
       console.log('Map is ready');
-      locService.initLocs()
+      const locs = locService.initLocs();
+      mapService.initMarkers(locs)
     })
     .catch(() => console.log('Error: cannot init map'));
+}
+
+function onSearch() {
+  const cityName = document.querySelector('.search-input').value;
+  locService.getCoordsByName(cityName).then((res) => {
+    mapService.panTo(res.lat, res.lng);
+    locService.saveLoc(cityName, res.lat, res.lng);
+    onGetLocs();
+    mapService.addMarker(res,cityName)
+    const infoWindow = mapService.getInfoWindow();
+    infoWindow.close();
+  });
 }
 
 function onCloseInfoWindow() {
@@ -41,8 +49,9 @@ function onSaveLoc() {
   };
   var name = document.querySelector('.place-name').value;
   locService.saveLoc(name, pos.lat, pos.lng);
+  mapService.addMarker(pos,name)
   infoWindow.close();
-  onGetLocs()
+  onGetLocs();
 }
 
 // This function provides a Promise API to the callback-based-api of getCurrentPosition
@@ -61,8 +70,9 @@ function onAddMarker() {
 function onGetLocs() {
   locService.getLocs().then((locs) => {
     console.log('Locations:', locs);
-    var strHtml = locs.map((loc) => 
-      `<tr>
+    var strHtml = locs.map(
+      (loc) =>
+        `<tr>
             <td>${loc.name}</td>
             <td>${loc.lat}</td>
             <td>${loc.lng}</td>
@@ -75,14 +85,15 @@ function onGetLocs() {
   });
 }
 
-function onDeleteLoc(lat,lng){
-    locService.deleteLoc(lat,lng);
-    onGetLocs()
+function onDeleteLoc(lat, lng) {
+  locService.deleteLoc(lat, lng);
+  mapService.deleteMarker(lat,lng)
+  onGetLocs();
 }
 
-function onGoToLoc(lat,lng){
-    // document.querySelector('.locs-container').classList.add('hide')
-    mapService.panTo(lat, lng)
+function onGoToLoc(lat, lng) {
+  // document.querySelector('.locs-container').classList.add('hide')
+  mapService.panTo(lat, lng);
 }
 
 function onGetUserPos() {
@@ -91,7 +102,7 @@ function onGetUserPos() {
       console.log('User position is:', pos.coords);
       document.querySelector(
         '.user-pos'
-      ).innerText = `Latitude: ${pos.coords.latitude} - Longitude: ${pos.coords.longitude}`
+      ).innerText = `Latitude: ${pos.coords.latitude} - Longitude: ${pos.coords.longitude}`;
       mapService.panTo(pos.coords.latitude, pos.coords.longitude);
     })
     .catch((err) => {
@@ -99,13 +110,6 @@ function onGetUserPos() {
     });
 }
 function onPanTo() {
-<<<<<<< HEAD
-    console.log('Panning the Map');
-    mapService.panTo(35.6895, 139.6917);
-}
-
-=======
   console.log('Panning the Map');
   mapService.panTo(35.6895, 139.6917);
 }
->>>>>>> cb261b83dfe9c930590ac15cc3025c53a8ecc5e1
