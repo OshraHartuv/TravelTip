@@ -8,6 +8,14 @@ export const mapService = {
 
 var gMap;
 
+// function addInfoWindow(){
+//     let infoWindow = new google.maps.InfoWindow({
+//         content: "Click the map to get Lat/Lng!",
+//         position: myLatlng,
+//       });
+    
+// }
+
 function initMap(lat = 32.0749831, lng = 34.9120554) {
     console.log('InitMap');
     return _connectGoogleApi()
