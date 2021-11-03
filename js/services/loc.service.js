@@ -16,4 +16,8 @@ function getLocs() {
     });
 }
 
+function saveLoc(name, lat, lng){
+    const weather = getWeather(lat,lng)
+    locs.posh({name, lat, lng, weather, createdAt: new Date(), updatedAt: new Date()})
+}
 

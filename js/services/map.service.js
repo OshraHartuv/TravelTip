@@ -2,19 +2,11 @@ export const mapService = {
   initMap,
   addMarker,
   panTo,
-getInfoWindow
+  getInfoWindow,
 };
 
 var gMap;
 let infoWindow;
-
-// function addInfoWindow(){
-//     let infoWindow = new google.maps.InfoWindow({
-//         content: "Click the map to get Lat/Lng!",
-//         position: myLatlng,
-//       });
-
-// }
 
 function initMap(lat = 32.0749831, lng = 34.9120554) {
   console.log('InitMap');
@@ -35,7 +27,7 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
         position: mapsMouseEvent.latLng,
       });
       infoWindow.setContent(
-       `<h3>Do you wish to save this location?</h3>
+        `<h3>Do you wish to save this location?</h3>
        <p> If so, enter a name and click "Save". Else click cancel</p>
        <input class="place-name" type="text" placeholder="Enter name">
        <button onclick="onSaveLoc()">Save</button>
@@ -81,5 +73,5 @@ function _connectGoogleApi() {
 }
 
 function getInfoWindow() {
-    return infoWindow
+  return infoWindow;
 }
