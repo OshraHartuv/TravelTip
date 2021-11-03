@@ -39,11 +39,6 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
   });
 }
 
-// function onCloseInfoWindow(){
-//     // infoWindow.close(gMap)
-//     console.log(this);
-// }
-
 function addMarker(loc) {
   var marker = new google.maps.Marker({
     position: loc,

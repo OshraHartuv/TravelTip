@@ -20,7 +20,6 @@ function onInit() {
 
 function onCloseInfoWindow(){
     const infoWindow = mapService.getInfoWindow()
-    // console.log(infoWindow.position.lat());
     infoWindow.close()
 }
 
@@ -28,10 +27,11 @@ function onSaveLoc(){
     const infoWindow = mapService.getInfoWindow()
     const pos = {lat: infoWindow.position.lat(), lng: infoWindow.position.lng() }
     var name = document.querySelector('.place-name').value;
-    saveLoc(name, pos.lat, pos.lng)
-    // console.log(pos);
+    locService.saveLoc(name, pos.lat, pos.lng)
     infoWindow.close();
 }
+
+
 
 // This function provides a Promise API to the callback-based-api of getCurrentPosition
 function getPosition() {
@@ -51,6 +51,20 @@ function onGetLocs() {
         .then(locs => {
             console.log('Locations:', locs)
             document.querySelector('.locs').innerText = JSON.stringify(locs)
+            var strHtml = locs.map(loc)
+
+            `  <table border="1">
+            <thead>
+                <td>Name</td>
+                <td>Latitude</td>
+                <td>Longitude</td>
+                <td>Go</td>
+                <td>Delete</td>
+            </thead>
+            <tr>
+                <td></td>
+            </tr>
+        </table>`
         })
 }
 

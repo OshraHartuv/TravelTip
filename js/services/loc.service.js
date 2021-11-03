@@ -1,5 +1,6 @@
 export const locService = {
-    getLocs
+    getLocs,
+    saveLoc
 }
 
 import { storageService } from './storage.service.js'
@@ -18,7 +19,9 @@ function getLocs() {
 }
 
 function saveLoc(name, lat, lng){
-    const weather = getWeather(lat,lng)
-    locs.posh({name, lat, lng, weather, createdAt: new Date(), updatedAt: new Date()})
+    // const weather = getWeather(lat,lng)
+    // const loc = {id: getId(), name, lat, lng, weather, createdAt: new Date(), updatedAt: new Date()}
+    locs.posh({name, lat, lng})
+    storageService.saveToStorage('locations', locs)
 }
 
