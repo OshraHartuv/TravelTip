@@ -2,9 +2,11 @@ export const mapService = {
   initMap,
   addMarker,
   panTo,
+getInfoWindow
 };
 
 var gMap;
+let infoWindow;
 
 // function addInfoWindow(){
 //     let infoWindow = new google.maps.InfoWindow({
@@ -22,7 +24,7 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
       center: { lat, lng },
       zoom: 15,
     });
-    let infoWindow = new google.maps.InfoWindow({
+    infoWindow = new google.maps.InfoWindow({
       content: 'Click the map to get save location!',
       position: { lat, lng },
     });
@@ -33,17 +35,22 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
         position: mapsMouseEvent.latLng,
       });
       infoWindow.setContent(
-       `<h3>Do tou wish to save this location?</h3>
-       <p> If so, enter a name. Else click cancel</p>
+       `<h3>Do you wish to save this location?</h3>
+       <p> If so, enter a name and click "Save". Else click cancel</p>
        <input class="place-name" type="text" placeholder="Enter name">
        <button onclick="onSaveLoc()">Save</button>
-       <button  onclick="closeInfoWindow()">Cancel</button>`
+       <button class="input-btn-cancel" onclick="onCloseInfoWindow()">Cancel</button>`
       );
       infoWindow.open(gMap);
     });
     console.log('Map!', gMap);
   });
 }
+
+// function onCloseInfoWindow(){
+//     // infoWindow.close(gMap)
+//     console.log(this);
+// }
 
 function addMarker(loc) {
   var marker = new google.maps.Marker({
@@ -71,4 +78,8 @@ function _connectGoogleApi() {
     elGoogleApi.onload = resolve;
     elGoogleApi.onerror = () => reject('Google script failed to load');
   });
+}
+
+function getInfoWindow() {
+    return infoWindow
 }

@@ -7,6 +7,8 @@ window.onAddMarker = onAddMarker;
 window.onPanTo = onPanTo;
 window.onGetLocs = onGetLocs;
 window.onGetUserPos = onGetUserPos;
+window.onSaveLoc = onSaveLoc;
+window.onCloseInfoWindow= onCloseInfoWindow;
 
 function onInit() {
     mapService.initMap()
@@ -14,6 +16,18 @@ function onInit() {
             console.log('Map is ready');
         })
         .catch(() => console.log('Error: cannot init map'));
+}
+
+function onCloseInfoWindow(){
+    const infoWindow = mapService.getInfoWindow()
+    console.log(infoWindow.position.lat());
+    infoWindow.close()
+}
+
+
+function onSaveLoc(){
+    var name = document.querySelector('.place-name').value;
+    console.log(name);
 }
 
 // This function provides a Promise API to the callback-based-api of getCurrentPosition
