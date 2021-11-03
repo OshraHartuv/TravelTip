@@ -30,8 +30,6 @@ function getLocs() {
 }
 
 function saveLoc(name, lat, lng){
-    // const weather = getWeather(lat,lng)
-    // const loc = {id: getId(), name, lat, lng, weather, createdAt: new Date(), updatedAt: new Date()}
     locs.push({name, lat, lng})
     console.log(locs);
     storageService.saveToStorage('locations', locs)
