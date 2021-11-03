@@ -1,6 +1,5 @@
 import { locService } from './services/loc.service.js'
 import { mapService } from './services/map.service.js'
-import { storageService } from './services/storage.service.js'
 
 
 window.onload = onInit;
@@ -12,7 +11,6 @@ window.onSaveLoc = onSaveLoc;
 window.onCloseInfoWindow= onCloseInfoWindow;
 
 function onInit() {
-    saveToStorage('lala', 5)
     mapService.initMap()
         .then(() => {
             console.log('Map is ready');
