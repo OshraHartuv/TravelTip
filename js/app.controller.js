@@ -12,14 +12,16 @@ window.onCloseInfoWindow = onCloseInfoWindow;
 window.onGoToLoc = onGoToLoc;
 window.onDeleteLoc = onDeleteLoc;
 window.onSearch = onSearch;
+window.onCopyLink = onCopyLink;
 
 function onInit() {
+    var isCopy = (window.location.href.indexOf('lat') > -1) ? true: false;
   mapService
     .initMap()
     .then(() => {
       console.log('Map is ready');
       const locs = locService.initLocs();
-      mapService.initMarkers(locs)
+      mapService.initMarkers(locs);
     })
     .catch(() => console.log('Error: cannot init map'));
 }
@@ -30,7 +32,7 @@ function onSearch() {
     mapService.panTo(res.lat, res.lng);
     locService.saveLoc(cityName, res.lat, res.lng);
     onGetLocs();
-    mapService.addMarker(res,cityName)
+    mapService.addMarker(res, cityName);
     const infoWindow = mapService.getInfoWindow();
     infoWindow.close();
   });
@@ -49,7 +51,7 @@ function onSaveLoc() {
   };
   var name = document.querySelector('.place-name').value;
   locService.saveLoc(name, pos.lat, pos.lng);
-  mapService.addMarker(pos,name)
+  mapService.addMarker(pos, name);
   infoWindow.close();
   onGetLocs();
 }
@@ -77,6 +79,7 @@ function onGetLocs() {
             <td>${loc.lng}</td>
             <td><button onclick="onGoToLoc(${loc.lat}, ${loc.lng})">Go</button></td>
             <td><button onclick="onDeleteLoc(${loc.lat}, ${loc.lng})">Delete</button></td>
+            <td><button onclick="onCopyLink(${loc.lat}, ${loc.lng})">Copy Link</button></td>
         </tr>`
     );
     document.querySelector('.locs').innerHTML = strHtml.join('');
@@ -84,9 +87,18 @@ function onGetLocs() {
   });
 }
 
+function onCopyLink(lat, lng) {
+  const params = new URL(
+    `https://oshrahartuv.github.io/TravelTip/index.html?${lat}=1&${lng}=2`
+  );
+  window.location.assign(`${params}`);
+  // console.log(params.get(`${lat}`));
+  // console.log(params);
+}
+
 function onDeleteLoc(lat, lng) {
   locService.deleteLoc(lat, lng);
-  mapService.deleteMarker(lat,lng)
+  mapService.deleteMarker(lat, lng);
   onGetLocs();
 }
 
@@ -108,6 +120,7 @@ function onGetUserPos() {
       console.log('err!!!', err);
     });
 }
+
 function onPanTo() {
   console.log('Panning the Map');
   mapService.panTo(35.6895, 139.6917);

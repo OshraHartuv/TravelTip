@@ -59,6 +59,7 @@ function deleteLoc(lat, lng) {
     return loc.lat === lat && loc.lng === lng;
   });
   locs.splice(idx, 1);
+  storageService.saveToStorage('locations', locs)
 }
 
 function getCoordsByName(cityName) {
