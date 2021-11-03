@@ -1,5 +1,12 @@
+<<<<<<< HEAD
+import { locService } from './services/loc.service.js'
+import { mapService } from './services/map.service.js'
+import { weatherService } from './services/weather.service.js'
+
+=======
 import { locService } from './services/loc.service.js';
 import { mapService } from './services/map.service.js';
+>>>>>>> cb261b83dfe9c930590ac15cc3025c53a8ecc5e1
 
 window.onload = onInit;
 window.onAddMarker = onAddMarker;
@@ -92,6 +99,13 @@ function onGetUserPos() {
     });
 }
 function onPanTo() {
+<<<<<<< HEAD
+    console.log('Panning the Map');
+    mapService.panTo(35.6895, 139.6917);
+}
+
+=======
   console.log('Panning the Map');
   mapService.panTo(35.6895, 139.6917);
 }
+>>>>>>> cb261b83dfe9c930590ac15cc3025c53a8ecc5e1
