@@ -1,4 +1,3 @@
-const KEY = 'AIzaSyDQjVlpzBYO6aHtrU9ydnXSKqk-zq7c6eQ'
 
 
 export const mapService = {
@@ -41,9 +40,9 @@ function panTo(lat, lng) {
 
 function _connectGoogleApi() {
     if (window.google) return Promise.resolve()
-    const API_KEY = ''; //TODO: Enter your API Key
+    const API_KEY = 'AIzaSyDQjVlpzBYO6aHtrU9ydnXSKqk-zq7c6eQ'; 
     var elGoogleApi = document.createElement('script');
-    elGoogleApi.src = `https://maps.googleapis.com/maps/api/js?key=${KEY}`;
+    elGoogleApi.src = `https://maps.googleapis.com/maps/api/js?key=${API_KEY}`;
     elGoogleApi.async = true;
     document.body.append(elGoogleApi);
 
