@@ -16,6 +16,7 @@ function onInit() {
     .initMap()
     .then(() => {
       console.log('Map is ready');
+      locService.initLocs()
     })
     .catch(() => console.log('Error: cannot init map'));
 }
@@ -34,6 +35,7 @@ function onSaveLoc() {
   var name = document.querySelector('.place-name').value;
   locService.saveLoc(name, pos.lat, pos.lng);
   infoWindow.close();
+  onGetLocs()
 }
 
 // This function provides a Promise API to the callback-based-api of getCurrentPosition
@@ -67,7 +69,8 @@ function onGetLocs() {
 }
 
 function onDeleteLoc(lat,lng){
-    DeleteLoc(lat,lng);
+    locService.deleteLoc(lat,lng);
+    onGetLocs()
 }
 
 function onGoToLoc(lat,lng){
