@@ -20,7 +20,6 @@ function initLocs() {
         { name: 'Neveragain', lat: 32.047201, lng: 34.832581 },
       ];
   initialLocs.forEach((loc) => locs.push(loc));
-  console.log('locs', locs);
   return locs
 }
 
@@ -34,7 +33,6 @@ function getLocs() {
 
 function saveLoc(name, lat, lng) {
   locs.push({ name, lat, lng });
-  console.log(locs);
   storageService.saveToStorage('locations', locs);
 }
 

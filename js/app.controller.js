@@ -69,7 +69,6 @@ function onAddMarker() {
 
 function onGetLocs() {
   locService.getLocs().then((locs) => {
-    console.log('Locations:', locs);
     var strHtml = locs.map(
       (loc) =>
         `<tr>

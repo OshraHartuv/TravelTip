@@ -36,7 +36,6 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
       infoWindow = new google.maps.InfoWindow({
         position: mapsMouseEvent.latLng,
       });
-      console.log(mapsMouseEvent.latLng.lat(), mapsMouseEvent.latLng.lng());
       infoWindow.setContent(
         `<h3>Do you wish to save this location?</h3>
        <p> If so, enter a name and click "Save". Else click cancel</p>
@@ -68,7 +67,6 @@ function addMarker(loc,title) {
 
 function panTo(lat, lng) {
   var laLatLng = new google.maps.LatLng(lat, lng);
-  console.log(lat,lng);
   gMap.panTo(laLatLng);
 }
 
