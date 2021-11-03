@@ -1,6 +1,7 @@
 export const locService = {
     getLocs,
-    saveLoc
+    saveLoc,
+    getPlaceAddress,
 }
 
 import { storageService } from './storage.service.js'
@@ -23,5 +24,14 @@ function saveLoc(name, lat, lng){
     // const loc = {id: getId(), name, lat, lng, weather, createdAt: new Date(), updatedAt: new Date()}
     locs.posh({name, lat, lng})
     storageService.saveToStorage('locations', locs)
+}
+
+
+function getPlaceAddress(lat, lng) {
+    axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=AIzaSyB3asC7L8WZF_qB7U01nT4Qmd-kxTMqcgY`)
+    .then((res) => {
+        console.log(res.data);
+        return res.data.results[0].['formated_address']
+    })
 }
 
