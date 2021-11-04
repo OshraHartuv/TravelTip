@@ -15,7 +15,7 @@ function deleteMarker(lat,lng){
   const idx = gMarkers.findIndex(marker=>{
     return (marker.position.lat() === lat && marker.position.lng() === lng)
   })
-  gMarkers[idx].setMap(null)
+  if (idx !== -1) gMarkers[idx].setMap(null)
 }
 
 function initMap(lat = 32.0749831, lng = 34.9120554) {

@@ -2,9 +2,11 @@ export const weatherService = {
   getWeather,
 };
 
-function getWeather(address) {
-  const city = address.city;
-  return axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=cec1523fcd0eed21029b89c3bf7a10f5`)
+function getWeather(lat,lng) {
+  // const city = address.city;
+  // console.log(city);
+  // return axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=cec1523fcd0eed21029b89c3bf7a10f5`)
+  return axios.get(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&appid=cec1523fcd0eed21029b89c3bf7a10f5`)
     // .catch((err) => {
     //   console.log("Error", err);
     // })

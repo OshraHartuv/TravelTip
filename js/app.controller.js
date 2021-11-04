@@ -126,12 +126,13 @@ function onGetUserPos() {
 }
 
 function renderWeather(lat, lng) {
-  locService.getPlaceAddress(lat, lng).then((placeRes) => {
-    weatherService.getWeather(placeRes).then(weatherRes => {
-      console.log('weatherRes:',weatherRes, '\n placeRes:', placeRes);
+  locService.getPlaceAddress(lat, lng).then((address) => {
+    weatherService.getWeather(lat,lng).then(weatherRes => {
+      console.log('weatherRes:',weatherRes);
+      // '\n placeRes:', placeRes
       // document.querySelector('.icon').innerText = '&#' + weatherRes.icon
-      document.querySelector('.city').innerText = placeRes.city;
-      document.querySelector('.country').innerText = placeRes.country;
+      // document.querySelector('.city').innerText = placeRes.city;
+      document.querySelector('.country').innerText = address;
       document.querySelector('.description').innerText = weatherRes.description;
       document.querySelector('.temp').innerText = weatherRes.temp
       document.querySelector('.min-temp').innerText = weatherRes.minTemp;

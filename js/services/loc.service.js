@@ -7,7 +7,6 @@ export const locService = {
   getCoordsByName,
 };
 
-import { weatherService } from './weather.service.js';
 import { storageService } from './storage.service.js';
 
 const locs = [];
@@ -42,15 +41,17 @@ function getPlaceAddress(lat, lng) {
     return axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=AIzaSyB3asC7L8WZF_qB7U01nT4Qmd-kxTMqcgY`)
     .then((res) => {
         console.log(res.data);
-        const city = res.data.results[0].address_components.find(scalePop => scalePop.types.includes('political'))
-        const country = res.data.results[0].address_components.find(scalePop => scalePop.types.includes('country'))
-        const placeInfo = {
-            country: country.short_name,
-            city: city.long_name,
-        }
+        const address = res.data.results[0].formatted_address
+        // const city = res.data.results[0].address_components.find(scalePop => scalePop.types.includes('political'))
+        // console.log(city);
+        // const country = res.data.results[0].address_components.find(scalePop => scalePop.types.includes('country'))
+        // const placeInfo = {
+        //     country: country.short_name,
+        //     city: city.long_name,
+        // }
         // console.log(placeInfo);
         // weatherService.getWeather(city.long_name)
-        return placeInfo
+        return address
     })
     .catch((err) => {console.log('Error', err);})
 }
